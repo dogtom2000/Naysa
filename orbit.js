@@ -1,3 +1,7 @@
+
+
+
+
 var Earth = {
     gravPara: 398600,       //km3/s2
     radius: 6371,           //km
@@ -20,7 +24,7 @@ var Rocket = {
 }
 
 
-var orbit = 140;            //km what you want your orbit to be
+var orbit = 180;            //km what you want your orbit to be
 
 var gravBase = 9.81;        //m/s2
 var gasConst = 8.314;       //m3Pa/K/mol
@@ -104,7 +108,7 @@ function burn(deltaTime){
     }
     
 
-    console.log(Rocket)
+    console.log(Rocket.velocity[1])
     //console.log(Math.log(Rocket.massShip + Rocket.massFuel)*9.81*Rocket.Isp, velocityMag)
     
     if (aCent_Z > aGrav_Z){
@@ -113,7 +117,7 @@ function burn(deltaTime){
         Rocket.position[1] = orbit;
         velocityMag = Math.pow((Math.pow(Rocket.velocity[0],2) + Math.pow(Rocket.velocity[1],2)),0.5);
         //console.log(Math.log(Rocket.massShip + Rocket.massFuel)*9.81*Rocket.Isp, velocityMag)
-        console.log(Rocket)
+        console.log(apoapsis)
         return 0;
     } else {
         return 1;
@@ -122,8 +126,8 @@ function burn(deltaTime){
 }
 
 
-for (var i = 0; i < 1000; i++){
- if (burn(stageFuel / (Rocket.thrust / Rocket.Isp / gravBase) / 1000) === 0){
+for (var i = 0; i < 20; i++){
+ if (burn(stageFuel / (Rocket.thrust / Rocket.Isp / gravBase) / 20) === 0){
      break;
  }
 };

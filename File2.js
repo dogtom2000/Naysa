@@ -1,0 +1,3 @@
+function alertOne() {
+     alertNumber("one");
+}

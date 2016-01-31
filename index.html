@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+<html>
+    <head>
+        <title> </title>
+    </head>
+    <body>
+        <center>
+        <h1>shpree</h1>
+           <div id="chart_div" style="width: 600; height: 600px;"></div>
+    <form name="form">
+      <textarea rows="1" cols="26" name="result"></textarea>
+
+      </br>
+      <input class="button" type="button" name="quote" value="time" onClick="points(+0)">
+      <input class="button" type="button" name="quote" value="position-r" onClick="points(+1)">
+      <input class="button" type="button" name="quote" value="position-t" onClick="points(+2)">
+      </br>
+      <input class="button" type="button" name="quote" value="velocity-r" onClick="points(+3)">
+      <input class="button" type="button" name="quote" value="velocity-t" onClick="points(+4)">
+      <input class="button" type="button" name="quote" value="acceleration-r" onClick="points(+5)">
+      </br>
+      <input class="button" type="button" name="quote" value="acceleration-t" onClick="points(+6)">
+      <input class="button" type="button" name="quote" value="plot" onClick="plot()">
+      <input class="button" type="button" name="quote" value="reset" onClick="points(+7)">
+      </br>
+    </form>
+    </center>
+    </body>
+</html>
+
+<script src="orbit_v4.js" type="text/javascript"></script> 
+
+
+<script type="text/javascript">
+    var placement;
+    var display = ["1","2"];
+    var array = [[]];
+    var xvarp = 0;
+    var yvarp = 0;
+    var chart;
+    var planet = ["Earth", 3.986e14, 6.371e6, 1, 7, 1.40e5, 28.97, 24];
+    //var rocket = ["Atlas_MkII", [1500, 15000, 15000, 320000, 250, 0.2, 5], [500, 5000, 5000, 150000, 300, 0.2, 2.5], [500, 3000, 3000, 65000, 300, 0.2, 2.5]];
+    var rocket = ["Saturn V", [130000, 2160000, 2160000, 34000000, 263, 0.2, 10.1], [40100, 456100, 456100, 4400000, 412, 0.2, 10.1], [74300, 109500, 109500, 1000000, 412, 0.2, 6.6]];
+
+
+        google.charts.load('current', {'packages':['corechart']});
+        google.charts.setOnLoadCallback(drawChart);
+        function plot() {
+            var data = google.visualization.arrayToDataTable(array);
+    
+        var options = {
+            title: 'Title',
+            hAxis: {title: 'x', minValue: 0, maxValue: 1},
+            vAxis: {title: 'y', minValue: 0, maxValue: 1},
+            legend: 'none',
+            pointShape: 'circle',
+            pointSize: 0,
+            lineWidth: 1
+        };
+    
+            chart = new google.visualization.ScatterChart(document.getElementById('chart_div'));
+            chart.draw(data, options);
+      }
+
+  
+  function points(num){
+
+      if (placement !== 0 && placement !== 1){
+          placement = 0;
+      }
+
+    switch (num){
+        case 0:
+            display[placement] = "time"
+            if (placement === 0){placement = 1;} else {placement = 0;}
+            break;
+        case 1:
+            display[placement] = "pos-r"
+            if (placement === 0){placement = 1;} else {placement = 0;}
+            break;
+        case 2:
+            display[placement] = "pos-t"
+            if (placement === 0){placement = 1;} else {placement = 0;}
+            break;
+        case 3:
+            display[placement] = "vel-r"
+            if (placement === 0){placement = 1;} else {placement = 0;}
+            break;
+        case 4:
+            display[placement] = "vel-t"
+            if (placement === 0){placement = 1;} else {placement = 0;}
+            break;
+        case 5:
+            display[placement] = "acc-r"
+            if (placement === 0){placement = 1;} else {placement = 0;}
+            break;
+        case 6:
+            display[placement] = "acc-t"
+            if (placement === 0){placement = 1;} else {placement = 0;}
+            break;
+        case 7:
+            display = ["1","2"];
+            placement = 0;
+            array = [[]];
+
+            break;
+   
+      }
+      
+      if (placement === 1){
+          xvarp = num;
+      } else {
+          yvarp = num;
+      }
+      
+      calcPoints(xvarp, yvarp);
+      
+      document.form.result.value = display[0] + " versus " + display[1];
+      //document.form.result.value = xvarp + "  " + yvarp
+ 
+  }
+  
+  function calcPoints(xvar,yvar){
+    var input = orbitEarth(planet, rocket);
+    var time = input[0];
+    var position = input[1];
+    var velocity = input[2];
+    var acceleration = input[3];
+    array = [["A", "B"]];
+
+    for (var i = 0; i < position.length; i++){
+        var a = time[i];
+        var b = position[i][0] - 6371000;
+        var c = position[i][1] * 6371000 - time[i] * 463.3122;
+        var d = velocity[i][0];
+        var e = velocity[i][1] -  463.3122;
+        var f = acceleration[i][0];
+        var g = acceleration[i][2];
+        var x;
+        var y;
+        
+        switch (xvar){
+            case 0:
+                x = a;
+                break;
+            case 1:
+                x = b;
+                break;
+            case 2:
+                x = c;
+                break;
+            case 3:
+                x = d;
+                break;
+            case 4:
+                x = e;
+                break;
+            case 5:
+                x = f;
+                break;
+            case 6:
+                x = g;
+                break;
+        }
+        
+        switch (yvar){
+            case 0:
+                y = a;
+                break;
+            case 1:
+                y = b;
+                break;
+            case 2:
+                y = c;
+                break;
+            case 3:
+                y = d;
+                break;
+            case 4:
+                y = e;
+                break;
+            case 5:
+                y = f;
+                break;
+            case 6:
+                y = g;
+                break;
+        }
+        
+       array.push([y,x]);
+
+    }
+    //array = [["A", "B"],[10,10]];
+  }
+  
+</script>
+
+<style type="text/css">
+    .button {
+  padding-top: 50px;
+  background-color: #222;
+  border: none;
+  color: white;
+  padding: 10px 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 12px;
+  margin: 0px;
+  width: 100px;
+  height: 40px;
+
+}
+</style>
