@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+  <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+  <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+
+<html>
+    <head>
+        <title> </title>
+    </head>
+    <body>
+        <h1>Build Page</h1>
+        <br>
+        <div class="container">
+        <div class='commandModule'></div>
+        <div class='fuelTank'></div>
+        <div class='rocketEngine'></div>
+        <div id="droppable" class="col-md-6">
+          <p>Drop here</p>
+        </div>
+        </div>
+    </body>
+</html>
+<script>
+    var sizeCommand = 100;
+    var sizeFuelTank = 110;
+    var sizeRocketEngine = 120;
+    var colorCommand = "#f00";
+    var colorFuelTank = "#0f0";
+    var colorRocketEngine = "#00f";
+    
+    $(".commandModule").css("border-width", sizeCommand + "px");
+    $(".commandModule").css("border-color", colorCommand);
+    $(".commandModule").css("border-top-right-radius", sizeCommand + "px");
+    $(".commandModule").css("border-top-left-radius", sizeCommand + "px");
+
+    $(".fuelTank").css("border-width", sizeFuelTank + "px");
+    $(".fuelTank").css("border-color", colorFuelTank);
+    $(".fuelTank").css("border-bottom-width", sizeFuelTank + "px");
+    $(".fuelTank").css("border-bottom-color", colorFuelTank);
+    
+    $(".rocketEngine").css("border-width", sizeRocketEngine + "px");
+    $(".rocketEngine").css("border-color", colorRocketEngine);
+    $(".rocketEngine").css("border-bottom-color", "transparent");
+
+    $(function() {
+        $( ".commandModule" ).draggable();
+        $( ".fuelTank" ).draggable();
+        $( ".rocketEngine" ).draggable();
+        $( "#droppable" ).droppable({
+            drop: function( event, ui ) {
+            $( this )
+            .addClass( "ui-state-highlight" )
+            .find( "p" )
+            .html( "Dropped!" );
+            }
+        });
+    });
+</script>
+
+<style>
+
+    .commandModule {
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-bottom: none;
+        left: 0px;
+        top: 0px;
+    }
+    
+    .fuelTank {
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-bottom: solid;
+        left: 0px;
+        top: 0px;
+    }
+    
+    .rocketEngine {
+        width: 0;
+        height: 0;
+        border: solid;
+        border-bottom-style: solid;
+        left: 0px;
+        top: 0px;
+    }
+    
+    #droppable{
+        border-style: solid;
+        border-color: black;
+        height: 150px;
+    }
+    
+</style>
