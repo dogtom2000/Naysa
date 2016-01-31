@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-
+<script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
 <html>
     <head>
         <title> </title>
@@ -8,7 +8,7 @@
     <body>
         <center>
         <h1>shpree</h1>
-           <div id="chart_div" style="width: 600; height: 600px;"></div>
+           <div id="chart_div" style="width: 600; height: 400px;"></div>
     <form name="form">
       <textarea rows="1" cols="26" name="result"></textarea>
 
@@ -27,6 +27,16 @@
       </br>
     </form>
     </center>
+          </br>
+      <input class="button" type="button" name="quote" value="Rocket 1" onClick="rocketSelector(1)">
+      <input class="button" type="button" name="quote" value="Rocket 2" onClick="rocketSelector(2)">
+      </br>
+      <select id="engineSelect">
+          <option value="1">Rocket Engine 1</option>
+          <option value="2">Rocket Engine 2</option>
+          <option value="3">Rocket Engine 3</option>
+    </select>
+      </br>
     </body>
 </html>
 
@@ -41,8 +51,42 @@
     var yvarp = 0;
     var chart;
     var planet = ["Earth", 3.986e14, 6.371e6, 1, 7, 1.40e5, 28.97, 24];
+    var rocket = [];
     //var rocket = ["Atlas_MkII", [1500, 15000, 15000, 320000, 250, 0.2, 5], [500, 5000, 5000, 150000, 300, 0.2, 2.5], [500, 3000, 3000, 65000, 300, 0.2, 2.5]];
-    var rocket = ["Saturn V", [130000, 2160000, 2160000, 34000000, 263, 0.2, 10.1], [40100, 456100, 456100, 4400000, 412, 0.2, 10.1], [74300, 109500, 109500, 1000000, 412, 0.2, 6.6]];
+    //var rocket = ["Saturn V", [130000, 2160000, 2160000, 34000000, 263, 0.2, 10.1], [40100, 456100, 456100, 4400000, 412, 0.2, 10.1], [74300, 109500, 109500, 1000000, 412, 0.2, 6.6]];
+    //time ,position, velocity, acceleration, rocket, run, outputMessage
+
+    function rocketSelector(input){
+        var engineSelection = $( "#engineSelect" ).val();
+            var engineMass;
+            var engineIsp;
+            var engineThrust;
+            
+        switch (engineSelection){
+            case "1":
+                engineMass = 1000;
+                engineIsp = 250;
+                engineThrust = 320000;
+                break;
+            case "2":
+                engineMass = 2000;
+                engineIsp = 300;
+                engineThrust = 640000;
+                break;
+            case "3":
+                engineMass = 2500;
+                engineIsp = 450;
+                engineThrust = 640000;
+                break;
+        }
+        //alert(engineThrust);
+        if (input === 1){
+            rocket = ["Saturn V", [130000, 2160000, 2160000, 34000000, 263, 0.2, 10.1], [40100, 456100, 456100, 4400000, 412, 0.2, 10.1], [74300, 109500, 109500, 1000000, 412, 0.2, 6.6]];
+        } else if (input === 2) {
+            rocket = ["Atlas_MkII", [engineMass + 1000, 15000, 15000, engineThrust, engineIsp, 0.2, 5], [500, 5000, 5000, 150000, 300, 0.2, 2.5], [500, 3000, 3000, 65000, 300, 0.2, 2.5]];
+        }
+    }
+
 
 
         google.charts.load('current', {'packages':['corechart']});

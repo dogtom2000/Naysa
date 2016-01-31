@@ -28,7 +28,7 @@ function orbitEarth(planet, rocket){
 
 //Execute from here
 var output = orbitPlanet(planet, rocket, 173000, 0, Math.PI / 2);
-console.log(output[0])
+//console.log(output[0])
 return output;
 //console.log(output);
 
@@ -47,7 +47,7 @@ function orbitPlanet(planet, rocket, orbit, theta, phi){
         }
         dV1 += Math.log(Mass1[i] / (Mass1[i] - Rocket.massFuel[i])) * Rocket.Isp[i] * 9.81
     }
-    console.log(dV1)
+    //console.log(dV1)
     //define flow control variables
     var t = 0;
     var deltaTime = 1;
@@ -73,7 +73,7 @@ function orbitPlanet(planet, rocket, orbit, theta, phi){
     position[0] = [Planet.radius, theta, phi];
 
     var output = burn();
-    console.log(outputMessage);
+    //console.log(outputMessage);
     //console.log(output)
     return output;
     
@@ -265,7 +265,7 @@ function orbitPlanet(planet, rocket, orbit, theta, phi){
             if (stopFlag === 1){
                 rocket = stageRocketConst(Rocket, rocketStage);
                 //return [rocket, velocity[t], position[t], run];
-                return [time ,position, velocity, acceleration];
+                return [time ,position, velocity, acceleration, rocket, run, outputMessage];
             }
 
         } 
