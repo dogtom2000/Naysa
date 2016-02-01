@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+
+
+<html>
+    <head>dragdrop</head>
+    <body>
+        <h1>dragdrop</h1>
+        <div class="container col-md-5">
+            <row>
+                <div class='commandModule draggable'></div>                    
+            </row>
+            <row>
+                <div class='fuelTank draggable'></div>                
+            </row>
+            <row>
+                <div class='rocketEngine draggable'></div>                
+            </row>
+        </div>
+        <div class="container col-md-6">
+            <div class='row'>
+                <div class="droppable"><b>Command Module</b></div>
+                <br>
+                <div class="droppable"><b>Fuel Tank</b></div>
+                <br>
+                <div class="droppable"><b>Rocket Engine</b></div>   
+            </div>
+        </div>
+    </body>
+</html>
+
+<script>
+    $(function() {
+        $(".draggable").draggable({stack: ".draggable"});
+        $(".droppable").droppable({
+            drop: function(event, ui){
+            $(this).addClass("ui-state-highlight");
+            }
+        });
+    });
+    /*
+    var sizeCommand = 100;
+    var sizeFuelTank = 100;
+    var sizeRocketEngine = 100;
+    var colorCommand = "#f00";
+    var colorFuelTank = "#0f0";
+    var colorRocketEngine = "#00f";
+    
+    $(".commandModule").css("border-width", sizeCommand + "px");
+    $(".commandModule").css("border-color", colorCommand);
+    $(".commandModule").css("border-top-right-radius", sizeCommand + "px");
+    $(".commandModule").css("border-top-left-radius", sizeCommand + "px");
+    
+    $(".fuelTank").css("border-width", sizeFuelTank + "px");
+    $(".fuelTank").css("border-color", colorFuelTank);
+    $(".fuelTank").css("border-bottom-width", sizeFuelTank + "px");
+    $(".fuelTank").css("border-bottom-color", colorFuelTank);
+    
+    $(".rocketEngine").css("border-width", sizeRocketEngine + "px");
+    $(".rocketEngine").css("border-color", colorRocketEngine);
+    $(".rocketEngine").css("border-bottom-color", "transparent");
+    */
+
+</script>
+
+<style>
+    
+
+    
+    .commandModule {
+        width: 0;
+        height: 0;
+        border: 50px solid #333;
+        border-bottom: none;
+        border-top-right-radius: 50px;
+        border-top-left-radius: 50px;
+        left: 0px;
+        top: 0px;
+    }
+    
+    .fuelTank {
+        width: 0;
+        height: 0;
+        border: 50px solid #444;
+        border-bottom: 50px solid #444;
+        left: 0px;
+        top: 0px;
+    }
+    
+    .rocketEngine {
+        width: 0;
+        height: 0;
+        border: 50px solid #555;
+        border-bottom: 50px solid;
+        border-bottom-color: transparent;
+        left: 0px;
+        top: 0px;
+    }
+    
+    .draggable{
+        position: relative;
+    }
+    
+    .droppable{
+        background-color: #aaa;
+        border-style: solid;
+        border-color: black;
+        border-radius: 35px;
+        text-align: center;
+        width: 175px;
+        height: 175px;
+    }
+    
+</style>
